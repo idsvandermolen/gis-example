@@ -1,0 +1,7 @@
+[tasks.check-updates]
+description = "Check for updates to dependencies"
+run = "uv lock --upgrade --dry-run"
+
+[tasks.upgrade]
+description = "Upgrade dependencies"
+run = "uv sync--upgrade"
