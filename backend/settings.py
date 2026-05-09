@@ -41,6 +41,11 @@ def required(key: str) -> str:
     raise ImproperlyConfigured(f"Environment variable '{key}' is required")
 
 
+def optional(key: str, default="") -> str:
+    """Get an optional environment variable."""
+    return os.environ.get(key, default)
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
@@ -50,7 +55,7 @@ SECRET_KEY = required("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = boolean("DEBUG", False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = optional("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 
 # Application definition
@@ -62,6 +67,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "rest_framework_gis",
+    "api",
 ]
 
 MIDDLEWARE = [
@@ -99,8 +107,8 @@ WSGI_APPLICATION = "backend.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.contrib.gis.db.backends.spatialite",
+        "NAME": optional("DB_NAME", f"{BASE_DIR / 'db.sqlite3'}"),
     }
 }
 
@@ -140,3 +148,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "static"
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework_gis.pagination.GeoJsonPagination",
+    "PAGE_SIZE": 100,
+}

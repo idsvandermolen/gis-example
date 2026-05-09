@@ -9,6 +9,8 @@ dependencies = [
     "django-cors-headers>=4.9.0",
     "djangorestframework>=3.17.1",
     "python-dotenv>=1.2.2",
+    "gdal>=3.10,<3.11",
+    "djangorestframework-gis",
 ]
 
 [tool.uv]
