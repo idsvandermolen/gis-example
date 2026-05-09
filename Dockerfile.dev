@@ -2,7 +2,7 @@ FROM python:3.14-trixie as base
 
 WORKDIR /app
 
-ENV DEBIAN_FRONTEND=interactive \
+ENV DEBIAN_FRONTEND=noninteractive \
     UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
     DB_NAME=/tmp/db.sqlite3 \
