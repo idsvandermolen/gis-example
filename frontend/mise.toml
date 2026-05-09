@@ -1,4 +1,4 @@
-[tasks.dev]
+[tasks.shell-dev]
 description = "Run the npm development server"
 run = "npm start"
 
