@@ -57,6 +57,9 @@ DEBUG = boolean("DEBUG", False)
 
 ALLOWED_HOSTS = optional("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
+# CORS
+CORS_ALLOW_ALL_ORIGINS = boolean("CORS_ALLOW_ALL_ORIGINS", True)
+CORS_ALLOW_CREDENTIALS = boolean("CORS_ALLOW_CREDENTIALS", True)
 
 # Application definition
 
@@ -67,12 +70,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_filters",
+    "corsheaders",
     "rest_framework",
     "rest_framework_gis",
     "api",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -151,6 +157,9 @@ STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "static"
 
 REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": "rest_framework_gis.pagination.GeoJsonPagination",
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 100,
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+    # "DEFAULT_PAGINATION_CLASS": "rest_framework_gis.pagination.GeoJsonPagination",
+    # "DEFAULT_FILTER_BACKENDS": ("rest_framework_gis.filters.InBBOXFilter",),
 }
