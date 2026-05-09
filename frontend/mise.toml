@@ -1,0 +1,7 @@
+[tasks.dev]
+description = "Run the npm development server"
+run = "npm start"
+
+[tasks.build]
+description = "Build the npm application for production"
+run = "npm run build"
