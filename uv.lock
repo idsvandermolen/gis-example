@@ -146,6 +146,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "django" },
     { name = "django-cors-headers" },
+    { name = "django-filter" },
     { name = "djangorestframework" },
     { name = "djangorestframework-gis" },
     { name = "gdal" },
@@ -164,6 +165,7 @@ dev = [
 requires-dist = [
     { name = "django", specifier = ">=6.0.5" },
     { name = "django-cors-headers", specifier = ">=4.9.0" },
+    { name = "django-filter", specifier = ">=25.2" },
     { name = "djangorestframework", specifier = ">=3.17.1" },
     { name = "djangorestframework-gis" },
     { name = "gdal", specifier = ">=3.10,<3.11" },
