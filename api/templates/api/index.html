@@ -9,14 +9,12 @@
 </head>
 
 <body>
-    <div id="map"></div>
-    <script type="module" src="{% static 'api/main.js' %}"></script>
-</body>
-
-</html>
-
-<body>
-
+    <h1>GIS Example API</h1>
+    <p>Welcome to the GIS Example API. Below are the available endpoints:</p>
+    <ul>
+        <li><a href="http://localhost:5173/">frontend</a> - OpenLayers map.</li>
+        <li><a href="{% url 'api:municipality-list' %}">/api/</a> - API root endpoint.</li>
+    </ul>
 </body>
 
 </html>

@@ -3,5 +3,11 @@ description = "Run the npm development server"
 run = "npm start"
 
 [tasks.build]
-description = "Build the npm application for production"
-run = "npm run build"
+# description = "Build the npm application for production"
+# run = "npm run build"
+description = "Build the npm container"
+run = "podman build -t gis-example-frontend:latest ."
+
+[tasks.start]
+description = "Start the npm container"
+run = "podman run -it --rm -p 5173:5173 gis-example-frontend"

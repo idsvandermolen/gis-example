@@ -26,5 +26,9 @@ run = "podman run -it --rm --env-file={{ env.PWD }}/.env -p 8000:8000 --user roo
 description = "Start the dev container with an interactive shell"
 run = "podman run -it --rm --env-file={{ env.PWD }}/.env -p 8000:8000 --user root --mount=type=bind,source=$PWD,target=/app,relabel=shared,rw --entrypoint /bin/bash gis-example:dev"
 
+[tasks.start]
+description = "Start the django container"
+run = "podman run -it --rm --env-file={{ env.PWD }}/.env -p 8000:8000 --mount=type=bind,source=$PWD/data,target=/app/data,relabel=shared gis-example:latest"
+
 [tools]
 node = "latest"
