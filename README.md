@@ -30,6 +30,9 @@ Start the container with `mise run start`, which exposes the correct ports (loca
 ### Start the frontend container
 Go to the `frontend` folder and start the container with `mise run start`, which exposes the correct ports (localhost:8000) and starts the container.
 
+### Start the containers with docker-compose
+I've currently only tested it with `podman-compose up`, but `docker-compose up` should most likely work as well.
+
 ## Use
 Start the containers (see above) and point your browser to http://localhost:8000 . This should provide a simple HTML page with links to these items:
 * the OpenLayer frontend app
