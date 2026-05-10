@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 import os
+import tomllib
 from pathlib import Path
 
 from django.core.exceptions import ImproperlyConfigured
@@ -18,9 +19,6 @@ from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Load environment variables from .env file
-load_dotenv()
 
 
 def boolean(key: str, default=None) -> bool | None:
@@ -45,6 +43,19 @@ def optional(key: str, default="") -> str:
     """Get an optional environment variable."""
     return os.environ.get(key, default)
 
+
+def get_pyproject():
+    pyproject = BASE_DIR / "pyproject.toml"
+    with pyproject.open("rb") as f:
+        pyproject_data = tomllib.load(f)
+    return pyproject_data["project"]
+
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Load project metadata from pyproject.toml
+PYPROJECT = get_pyproject()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
@@ -74,6 +85,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "rest_framework_gis",
+    "drf_spectacular",
     "api",
 ]
 
@@ -160,6 +172,20 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 100,
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
-    # "DEFAULT_PAGINATION_CLASS": "rest_framework_gis.pagination.GeoJsonPagination",
-    # "DEFAULT_FILTER_BACKENDS": ("rest_framework_gis.filters.InBBOXFilter",),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": PYPROJECT["name"],
+    "DESCRIPTION": PYPROJECT.get("description", ""),
+    "VERSION": PYPROJECT["version"],
+    "SERVE_PUBLIC": True,
+    "SERVE_INCLUDE_SCHEMA": True,
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
+    # Other settings:
+    "SCHEMA_COERCE_PATH_PK_SUFFIX": True,
+    "SCHEMA_PATH_PREFIX": r"^/api/",
+    "SWAGGER_UI_SETTINGS": {
+        "docsExpansion": '["list", "full", "none"*]',
+    },
 }
