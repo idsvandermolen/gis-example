@@ -73,7 +73,6 @@ CORS_ALLOW_ALL_ORIGINS = boolean("CORS_ALLOW_ALL_ORIGINS", True)
 CORS_ALLOW_CREDENTIALS = boolean("CORS_ALLOW_CREDENTIALS", True)
 
 # Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -173,7 +172,15 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 100,
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
 }
+
+if boolean("REQUIRE_AUTHENTICATION", False):
+    REST_FRAMEWORK["DEFAULT_PERMISSION_CLASSES"] = [
+        "rest_framework.permissions.IsAuthenticated",
+    ]
 
 SPECTACULAR_SETTINGS = {
     "TITLE": PYPROJECT["name"],
