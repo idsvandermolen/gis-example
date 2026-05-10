@@ -177,6 +177,11 @@ REST_FRAMEWORK = {
     ],
 }
 
+if boolean("REQUIRE_AUTHENTICATION", False):
+    REST_FRAMEWORK["DEFAULT_PERMISSION_CLASSES"] = [
+        "rest_framework.permissions.IsAuthenticated",
+    ]
+
 SPECTACULAR_SETTINGS = {
     "TITLE": PYPROJECT["name"],
     "DESCRIPTION": PYPROJECT.get("description", ""),
