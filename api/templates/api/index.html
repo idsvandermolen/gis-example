@@ -13,6 +13,9 @@
     <p>Welcome to the GIS Example API. Below are the available endpoints:</p>
     <ul>
         <li><a href="http://localhost:5173/">frontend</a> - OpenLayers map.</li>
+        <li><a href="{% url 'swagger-ui' %}">/swagger/</a> - Swagger UI to interactively use API.</li>
+        <li><a href="{% url 'redoc' %}">/doc/</a> - API documentation.</li>
+        <li><a href="{% url 'schema' %}">/schema/</a> - Download the OpenAPI schema.</li>
         <li><a href="{% url 'api:municipality-list' %}">/api/</a> - API root endpoint.</li>
     </ul>
 </body>
