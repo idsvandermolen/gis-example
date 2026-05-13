@@ -90,6 +90,12 @@ SIMPLE_JWT_REFRESH_TOKEN_LIFETIME = optional(
 AUTO_INSRUMENT = boolean("AUTO_INSRUMENT", True)
 
 #
+# Whitenoise settings
+#
+USE_WHITENOISE_IN_DEV = boolean("USE_WHITENOISE_IN_DEV", True)
+USE_WHITENOISE_STORAGE = boolean("USE_WHITENOISE_STORAGE", True)
+
+#
 # Django application configuration
 #
 
@@ -109,9 +115,13 @@ INSTALLED_APPS = [
     "api",
 ]
 
+if USE_WHITENOISE_IN_DEV:
+    INSTALLED_APPS.insert(0, "whitenoise.runserver_nostatic")
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -187,6 +197,13 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "static"
+
+if USE_WHITENOISE_STORAGE:
+    STORAGES = {
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        }
+    }
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
