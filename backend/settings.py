@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 import os
 import tomllib
+from datetime import timedelta
 from pathlib import Path
 
 from django.core.exceptions import ImproperlyConfigured
@@ -21,6 +22,9 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+#
+# Helper functions to read environment variables
+#
 def boolean(key: str, default=None) -> bool | None:
     """Convert an environment variable to a boolean."""
     if key in os.environ:
@@ -60,6 +64,10 @@ PYPROJECT = get_pyproject()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
+#
+# Main settings
+#
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = required("DJANGO_SECRET_KEY")
 
@@ -71,6 +79,15 @@ ALLOWED_HOSTS = optional("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 # CORS
 CORS_ALLOW_ALL_ORIGINS = boolean("CORS_ALLOW_ALL_ORIGINS", True)
 CORS_ALLOW_CREDENTIALS = boolean("CORS_ALLOW_CREDENTIALS", True)
+
+# JWT settings
+SIMPLE_JWT_ACCESS_TOKEN_LIFETIME = optional("SIMPLE_JWT_ACCESS_TOKEN_LIFETIME", "300")
+SIMPLE_JWT_REFRESH_TOKEN_LIFETIME = optional(
+    "SIMPLE_JWT_REFRESH_TOKEN_LIFETIME", "3600"
+)
+#
+# Django application configuration
+#
 
 # Application definition
 INSTALLED_APPS = [
@@ -195,4 +212,9 @@ SPECTACULAR_SETTINGS = {
     "SWAGGER_UI_SETTINGS": {
         "docsExpansion": '["list", "full", "none"*]',
     },
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(seconds=int(SIMPLE_JWT_ACCESS_TOKEN_LIFETIME)),
+    "REFRESH_TOKEN_LIFETIME": timedelta(seconds=int(SIMPLE_JWT_REFRESH_TOKEN_LIFETIME)),
 }
