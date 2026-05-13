@@ -26,6 +26,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 COPY manage.py entrypoint.sh ./
 COPY backend ./backend
 COPY api ./api
+COPY etc ./etc
 
 EXPOSE 8000
 
