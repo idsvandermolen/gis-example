@@ -28,10 +28,14 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+from .views import alive, ready
+
 urlpatterns = [
     path("", lambda r: render(r, "api/index.html"), name="index"),
-    path("admin/", admin.site.urls),
+    path("alive", alive, name="alive"),
+    path("ready", ready, name="ready"),
     path("api/", include("api.urls")),
+    path("admin/", admin.site.urls),
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
