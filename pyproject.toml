@@ -24,6 +24,7 @@ dependencies = [
     "opentelemetry-instrumentation-wsgi==0.62b1",
     "opentelemetry-instrumentation-asgi==0.62b1",
     "opentelemetry-instrumentation-django==0.62b1",
+    "gunicorn>=26.0.0",
 ]
 
 [tool.uv]
