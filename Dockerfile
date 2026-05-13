@@ -13,25 +13,20 @@ ENV DEBIAN_FRONTEND=noninteractive \
 RUN apt update \
     && apt install -y libgdal-dev sqlite3 libsqlite3-mod-spatialite \
     && rm -rf /var/lib/apt/lists/* \
-    && pip3 install --root-user-action=ignore --no-cache-dir uv
+    && pip3 install --root-user-action=ignore --no-cache-dir uv \
+    && mkdir -p -m 755 ${APP_HOME}/static
 
-# application sources
-COPY manage.py entrypoint.sh pyproject.toml uv.lock ./
-COPY backend ./backend
-COPY api ./api
+# Copy uv stuff
+COPY pyproject.toml uv.lock ./
 
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-install-project --no-dev
-RUN mkdir -p -m 755 ${APP_HOME}/static
 
-# FROM python:3.14-trixie
-
-# # bring over the prepared app tree (including .venv)
-# COPY --from=base /app /app
-
-# WORKDIR /app
+# application sources
+COPY manage.py entrypoint.sh ./
+COPY backend ./backend
+COPY api ./api
 
 EXPOSE 8000
 
 ENTRYPOINT ["/app/entrypoint.sh"]
-# CMD []
