@@ -7,6 +7,7 @@ import GeoJSON from 'ol/format/GeoJSON';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { bbox as bboxStrategy } from 'ol/loadingstrategy';
+import { Style, Fill, Stroke, Text } from 'ol/style';
 
 const vectorSource = new VectorSource({
   format: new GeoJSON({
@@ -52,7 +53,30 @@ const map = new Map({
       source: new OSM()
     }),
     new VectorLayer({
-      source: vectorSource
+      source: vectorSource,
+      style: function (feature, resolution) {
+        // Only show labels at a sufficient zoom level to avoid overlap
+        const zoom = map.getView().getZoom();
+        const minLabelZoom = 9; // adjust this threshold as needed
+        const labelText = (zoom >= minLabelZoom) ? feature.get('name') : '';
+
+        return new Style({
+          stroke: new Stroke({
+            color: 'blue',
+            width: 1,
+          }),
+          fill: new Fill({
+            color: 'rgba(0, 0, 255, 0.1)',
+          }),
+          text: new Text({
+            text: labelText,
+            font: '12px Calibri,sans-serif',
+            fill: new Fill({ color: '#000' }),
+            stroke: new Stroke({ color: '#fff', width: 2 }),
+            overflow: true
+          }),
+        });
+      },
     }),
   ],
   view: new View({
