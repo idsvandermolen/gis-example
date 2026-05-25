@@ -4,7 +4,7 @@ run = "uv lock --upgrade --dry-run"
 
 [tasks.upgrade]
 description = "Upgrade dependencies"
-run = "uv sync--upgrade"
+run = "uv sync --upgrade"
 
 [tasks.generate-django-secret-key]
 description = "Generate a Django secret key"
