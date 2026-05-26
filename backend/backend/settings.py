@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 import os
-import tomllib
 from datetime import timedelta
 from pathlib import Path
 
+import tomllib
 from django.core.exceptions import ImproperlyConfigured
 from dotenv import load_dotenv
 
@@ -196,7 +196,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "backend" / "static"
+STATIC_ROOT = BASE_DIR / "static"
 
 if USE_WHITENOISE_STORAGE:
     STORAGES = {
