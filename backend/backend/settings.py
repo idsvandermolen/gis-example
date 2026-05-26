@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 import os
-import tomllib
 from datetime import timedelta
 from pathlib import Path
 
+import tomllib
 from django.core.exceptions import ImproperlyConfigured
 from dotenv import load_dotenv
 
@@ -156,7 +156,7 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.spatialite",
-        "NAME": optional("DB_NAME", f"{BASE_DIR / 'db.sqlite3'}"),
+        "NAME": optional("DB_NAME", f"{BASE_DIR / 'data' / 'db.sqlite3'}"),
     }
 }
 
@@ -196,7 +196,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "static"
+STATIC_ROOT = BASE_DIR / "backend" / "static"
 
 if USE_WHITENOISE_STORAGE:
     STORAGES = {
