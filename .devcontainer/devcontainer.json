@@ -12,7 +12,7 @@
         }
     },
     "workspaceFolder": "/app",
-    "workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind,consistency=delegated",
+    "workspaceMount": "source=${localWorkspaceFolder}/backend,target=/app,type=bind,consistency=delegated",
     "remoteEnv": {
         "DB_NAME": "/app/data/db.sqlite3"
     },
