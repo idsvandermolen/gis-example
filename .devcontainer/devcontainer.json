@@ -13,9 +13,6 @@
     },
     "workspaceFolder": "/app",
     "workspaceMount": "source=${localWorkspaceFolder}/backend,target=/app,type=bind,consistency=delegated",
-    "remoteEnv": {
-        "DB_NAME": "/app/data/db.sqlite3"
-    },
     "remoteUser": "root",
     "postCreateCommand": "uv sync --locked",
     "customizations": {
