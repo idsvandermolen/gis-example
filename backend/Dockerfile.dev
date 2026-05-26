@@ -11,9 +11,11 @@ ENV DEBIAN_FRONTEND=noninteractive \
 # installs 3.10, recent python-gdal require 3.12
 RUN apt update \
     && apt install -y libgdal-dev sqlite3 libsqlite3-mod-spatialite \
+    && apt install -y bash-completion \
     && rm -rf /var/lib/apt/lists/* \
     && pip3 install --root-user-action=ignore --no-cache-dir uv \
-    && mkdir -p -m 755 ${APP_HOME}/static
+    && mkdir -p -m 755 ${APP_HOME}/static \
+    && echo "source /etc/bash_completion" >> ~/.bashrc
 
 EXPOSE 8000
 
