@@ -17,10 +17,10 @@ uv run python -c 'from django.core.management.utils import get_random_secret_key
 If you do not have `mise`, you can have a look at the `mise.toml` files to find the relevant commands for the mise tasks.
 
 ### Build django container
-Build the container with `podman build -f Dockerfile -t gis-example:latest .` or if you use docker with `docker build -f Dockerfile -t gis-example:latest .`
+Build the container with `podman build -f Dockerfile -t gis-example:latest backend` or if you use docker with `docker build -f Dockerfile -t gis-example:latest backend`
 
 ### Build frontend container
-Go to the `frontend` folder and build the container with `podman build -f Dockerfile -t gis-example-frontend:latest .` or if you use docker with `docker build -f Dockerfile -t gis-example-frontend:latest .`.
+Build the container with `podman build -f Dockerfile -t gis-example-frontend:latest frontend` or if you use docker with `docker build -f Dockerfile -t gis-example-frontend:latest frontend`.
 
 ## Start containers
 ### Start the django container
@@ -28,7 +28,7 @@ Place the GeoJSON municipalities data file `municipalities_nl.geojson` into `dat
 Start the container with `mise run start`, which exposes the correct ports (localhost:5173), binds the `data` directory and starts the container.
 
 ### Start the frontend container
-Go to the `frontend` folder and start the container with `mise run start`, which exposes the correct ports (localhost:8000) and starts the container.
+Start the container with `mise run start`, which exposes the correct ports (localhost:8000) and starts the container.
 
 ### Start the containers with docker-compose
 I've currently only tested it with `podman-compose up`, but `docker-compose up` should most likely work as well.
