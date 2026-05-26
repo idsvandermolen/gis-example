@@ -6,7 +6,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
     UV_NO_DEV=1 \
-    APP_HOME=/app
+    APP_HOME=/app \
+    DB_NAME=/app/data/db.sqlite3
 
 # installs 3.10, recent python-gdal require 3.12
 RUN apt update \

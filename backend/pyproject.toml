@@ -40,5 +40,5 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "gis_example.settings"
+DJANGO_SETTINGS_MODULE = "backend.settings"
 addopts = "-n auto"
