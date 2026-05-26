@@ -1,6 +1,6 @@
 {
     "name": "GIS Example",
-    "dockerFile": "../Dockerfile.dev",
+    "dockerFile": "../backend/Dockerfile.dev",
     "context": "..",
     "forwardPorts": [
         8000

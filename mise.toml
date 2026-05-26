@@ -1,34 +1,14 @@
-[tasks.check-updates]
-description = "Check for updates to dependencies"
-run = "uv lock --upgrade --dry-run"
+[tasks.compose-build]
+description = "Build services with podman compose"
+run = "podman compose build"
 
-[tasks.upgrade]
-description = "Upgrade dependencies"
-run = "uv sync --upgrade"
+[tasks.compose-up]
+description = "Start services with podman compose"
+run = "podman compose up -d"
 
-[tasks.generate-django-secret-key]
-description = "Generate a Django secret key"
-run = "uv run python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'"
-
-[tasks.build]
-description = "Build the django Docker image"
-run = "podman build -f Dockerfile -t gis-example:latest ."
-
-[tasks.build-dev]
-description = "Build the dev django Docker image"
-run = "podman build -f Dockerfile.dev -t gis-example:dev ."
-
-[tasks.shell]
-description = "Start the django container with an interactive shell"
-run = "podman run -it --rm --env-file={{ env.PWD }}/.env -p 8000:8000 --user root --mount=type=bind,source=$PWD/data,target=/app/data,relabel=shared --entrypoint /bin/bash gis-example:latest"
-
-[tasks.shell-dev]
-description = "Start the dev container with an interactive shell"
-run = "podman run -it --rm --env-file={{ env.PWD }}/.env -p 8000:8000 --user root --mount=type=bind,source=$PWD,target=/app,relabel=shared,rw --entrypoint /bin/bash gis-example:dev"
-
-[tasks.start]
-description = "Start the django container"
-run = "podman run -it --rm --env-file={{ env.PWD }}/.env -p 8000:8000 --mount=type=bind,source=$PWD/data,target=/app/data,relabel=shared gis-example:latest"
+[tasks.compose-down]
+description = "Stop services with podman compose"
+run = "podman compose down"
 
 [tools]
 node = "latest"

@@ -15,7 +15,7 @@ RUN apt update \
     && pip3 install --root-user-action=ignore --no-cache-dir uv \
     && mkdir -p -m 755 ${APP_HOME}/static
 
-# Copy uv stuff
+# Copy uv stuff (from backend folder when building from repo root)
 COPY pyproject.toml uv.lock ./
 
 RUN --mount=type=cache,target=/root/.cache/uv \
