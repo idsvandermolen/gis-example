@@ -11,10 +11,15 @@
             "onAutoForward": "notify"
         }
     },
-    "workspaceFolder": "/app",
-    "workspaceMount": "source=${localWorkspaceFolder}/backend,target=/app,type=bind,consistency=delegated",
+    "mounts": [
+        {
+            "source": "${localWorkspaceFolder}/backend",
+            "target": "/app",
+            "type": "bind"
+        }
+    ],
     "remoteUser": "root",
-    "postCreateCommand": "uv sync --locked",
+    "postCreateCommand": "cd /app && uv sync --locked",
     "customizations": {
         "vscode": {
             "extensions": [
