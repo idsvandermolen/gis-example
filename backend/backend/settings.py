@@ -96,10 +96,6 @@ USE_WHITENOISE_IN_DEV = boolean("USE_WHITENOISE_IN_DEV", True)
 USE_WHITENOISE_STORAGE = boolean("USE_WHITENOISE_STORAGE", True)
 
 #
-# Logging
-LOG_LEVEL = optional("LOG_LEVEL", "INFO")
-
-#
 # Django application configuration
 #
 
@@ -242,12 +238,4 @@ SPECTACULAR_SETTINGS = {
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(seconds=int(SIMPLE_JWT_ACCESS_TOKEN_LIFETIME)),
     "REFRESH_TOKEN_LIFETIME": timedelta(seconds=int(SIMPLE_JWT_REFRESH_TOKEN_LIFETIME)),
-}
-
-LOGGING = {
-        "version": 1,
-        "disable_existing_loggers": False,
-        "root": {
-            "level": LOG_LEVEL,
-        }
 }
