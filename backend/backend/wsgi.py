@@ -15,7 +15,7 @@ from opentelemetry.instrumentation.auto_instrumentation import initialize
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.settings")
 from django.conf import settings
 
-application = get_wsgi_application()
-
 if settings.AUTO_INSRUMENT:
     initialize()
+
+application = get_wsgi_application()
