@@ -157,6 +157,8 @@ DATABASES = {
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.spatialite",
         "NAME": optional("DB_NAME", "db.sqlite3"),
+        "CONN_MAX_AGE": 300,
+        "CONN_HEALTH_CHECKS": True,
     }
 }
 
